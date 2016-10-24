@@ -1,4 +1,4 @@
-#!/usr/bin/env babel-node
+#!/usr/bin/env babel-node --
 
 require('./helper')
 
@@ -51,6 +51,10 @@ function main() {
         async (socket) => {
             clientConnected = socket
             console.log('client connected')
+            clientConnected.on('close', async() => {
+                console.log('client close')
+                clientConnected = null
+            })
         }
     )
     server.listen(socketPort, () => {
@@ -115,7 +119,7 @@ async function changeHandlerAuto(type, path) {
         path: rUrl,
         updated: Date.now()
     }
-    if(type === 'add' || type === 'change') {
+    if(type === 'add' || type === 'change' || type === 'addDir') {
         pageload.action = 'write'
     } else if(type === 'unlink') {
         pageload.action = 'delete'

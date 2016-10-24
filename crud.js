@@ -1,4 +1,4 @@
-#!/usr/bin/env babel-node
+#!/usr/bin/env babel-node --
 
 require('./helper')
 
@@ -13,6 +13,7 @@ const argv = require('yargs').argv
 
 
 const rootDir = argv.dir ? argv.dir : path.join(__dirname, 'files')
+console.log(`root directory: ${rootDir}`)
 
 
 async function read(req, res, next) {    

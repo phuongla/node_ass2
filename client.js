@@ -1,4 +1,4 @@
-#!/usr/bin/env babel-node
+#!/usr/bin/env babel-node --
 
 require('./helper')
 
@@ -13,6 +13,7 @@ const serverPort = 8001
 
 const argv = require('yargs').argv
 const rootDir = argv.dir ? argv.dir : path.join(__dirname, 'client_files')
+console.log(`root directory: ${rootDir}`)
 
 const httpServerUrl = 'http://127.0.0.1:8000/'
 
@@ -31,6 +32,7 @@ function main() {
     })
 
     socket.data(['pageload'], async (data) => {
+        console.log(data)
         const fullPath = path.join(rootDir, data.path)
         if(data.action === 'write') {
             await writeFile(fullPath, data.path)
